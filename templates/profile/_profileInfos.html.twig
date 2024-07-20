@@ -1,0 +1,31 @@
+<!-- Introduction Section -->
+<section
+    class="py-10 px-8 sm:px-32 flex flex-col justify-center"
+>
+    <div class="space-y-3 max-w-[792px] flex flex-col self-center">
+        <p class="flex justify-center text-center font-bold">
+            {% if is_granted('ROLE_ADMIN') %}
+                <span>Administrateur.trice</span>
+            {% elseif is_granted('ROLE_VETERINARY') %}
+                <span>Vétérinaire</span>
+            {% elseif is_granted('ROLE_EMPLOYEE') %}
+                <span>Employé.e</span>
+            {% else %}
+                <span>Utilisateur</span>
+            {% endif %}
+        </p>
+        <h2 class="font-header text-center text-primGreen text-[40px] leading-[48px] sm:text-6xl sm:text-center tracking-tight"> {{ user.firstName }} {{ user.lastName }} </h2>
+        <p class="text-center text-md"> {{ user.email }} </p>
+    </div>
+    
+    <div class="flex justify-center gap-4 py-10">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('admin') }}">
+                {{ component('Button', {text: 'Administration du Zoo', size:'small', isPrimary: true, isCta: true, labelColor: ''}) }}
+            </a>
+        {% endif %}
+        <a href="mailto:webmaster@arcadia-zoo.com">
+            {{ component('Button', {text: 'Contacter le Support', size:'small', isPrimary: false, isCta: false, labelColor: ''}) }}
+        </a>
+    </div>
+</section>

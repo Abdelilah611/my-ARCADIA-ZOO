@@ -1,0 +1,59 @@
+<section
+    class="px-8 py-20 flex flex-col justify-center items-center md:pt-64 md:pb-32"
+    style='background: rgb(252,251,247);
+            background: -moz-linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+            background: -webkit-linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+            background: linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fcfbf7",endColorstr="#fcfbf7",GradientType=1);'
+>
+    <div class="flex flex-col gap-10 max-w-[792px] md:gap-20">
+        <h2 class="font-header text-[40px] leading-[48px] text-center text-[#73370D] capitalize sm:text-6xl">
+            Contactez-nous dès maintenant
+        </h2>
+        <p class="md:text-center">
+            Vous avez des questions ou des commentaires? N'hésitez pas à nous contacter en utilisant le formulaire ci-dessous. Nous vous répondrons dans les plus brefs délais.
+        </p>
+        <form id="contact-form" class="flex flex-col gap-5" method="post" action="{{ path('contact') }}">
+            <input type="hidden" name="_csrf_token" value=" {{ csrf_token('contact_form') }} ">
+            <div class="flex flex-col w-full">
+                <label for="name" class="block pb-2 text-[#1F5906] text-sm italic tracking-wider">Votre Nom complet</label>
+                <input id="name" type="text" name="name" placeholder="Loriane ZACHARIE" class="block text-base tracking-wider w-full p-2 border-[0.5px] border-[#1F5906] bg-[#1F5906]/[.02] rounded placeholder:text-[#B3ADA9] placeholder:text-base invalid:border-[#D43E35] invalid:text-[#D43E35] focus:border-[#2A66DB] focus:ring-1 focus:outline-none focus:ring-[#2A66DB]">
+            </div>
+            <div class="flex flex-col w-full">
+                <label for="email" class="block pb-2 text-[#1F5906] text-sm italic tracking-wider">Votre Email</label>
+                <input id="email" type="email" name="email" placeholder="mon-email@exemple.fr" class="block text-base tracking-wider w-full p-2 border-[0.5px] border-[#1F5906] bg-[#1F5906]/[.02] rounded placeholder:text-[#B3ADA9] placeholder:text-base invalid:border-[#D43E35] invalid:text-[#D43E35] focus:border-[#2A66DB] focus:ring-1 focus:outline-none focus:ring-[#2A66DB]">
+            </div>
+            <div  class="flex flex-col w-full">
+                <label for="message" class="block pb-2 text-[#1F5906] text-sm italic tracking-wider">Votre Message</label>
+                <textarea id="message" name="message" placeholder="Écrivez votre message ici ..." class="block text-base tracking-wider w-full p-2 border-[0.5px] border-[#1F5906] bg-[#1F5906]/[.02] rounded placeholder:text-[#B3ADA9] placeholder:text-base invalid:border-[#D43E35] invalid:text-[#D43E35] focus:border-[#2A66DB] focus:ring-1 focus:outline-none focus:ring-[#2A66DB]"></textarea>
+            </div>
+            <div id="ajax-submit" class="self-center pt-3">
+              {{ component('Button', {text: 'Envoyer mon message', size:'medium', isPrimary: true, isCta: true, labelColor: '', isSubmit: true}) }}
+            </div>
+        </form>
+    </div>  
+</section>
+
+<script>
+  document.querySelector('#ajax-submit button').addEventListener('click', function (event) {
+    event.preventDefault();
+    var form = document.getElementById('contact-form');
+    var formData = new FormData(form);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', form.action, true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            swal.fire({
+                icon: 'success',
+                title: 'Email sent!',
+                text: response.message,
+            });
+            form.reset();
+        } else {
+            console.error('Error sending email:', xhr.responseText);
+        }
+    };
+    xhr.send(formData);
+  });
+</script>

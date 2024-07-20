@@ -1,0 +1,121 @@
+<section class="bg-[#1f5906] text-[#FCFBF7] text-base px-8 pt-5 pb-10 drop-shadow-[0_-3px_2px_rgba(0,0,0,0.25)]">
+    <div class="flex flex-col gap-10 lg:mx-auto lg:max-w-[1200px]">
+        <img
+            class="w-[180px] drop-shadow-[0_4px_2px_rgba(0,0,0,0.3)]"
+            src="images/logo/zoo_logo_medium_transparent.svg"
+            alt="Logo Arcadia">
+
+        <div class="flex flex-col gap-10 items-start md:max-xl:flex-wrap md:flex-row xl:justify-between md:justify-evenly">
+            <div class="flex flex-col gap-6 min-w-[270px] py-4">
+                <p><span class="text-2xl text-[#FAD5BB] font-bold tracking-[0.04em] ">Horaires</span></p>
+                <ul class="flex flex-col gap-3">
+                    {% for openingHour in openingHours %}
+                        <li>
+                            {{ openingHour.day }} : 
+                            {% if (openingHour.open|date('H:i') == '00:00') and (openingHour.close|date('H:i') == '00:00') %}
+                                Fermé
+                            {% else %}
+                                {{ openingHour.open|date('H:i')}} - {{ openingHour.close|date('H:i')}}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="flex flex-col gap-6 min-w-[270px] py-4">
+                <p><span class="text-2xl text-[#FAD5BB] font-bold tracking-[0.04em] ">Adresse</span></p>
+                <a 
+                    href="https://maps.app.goo.gl/QB7JZLfFqfZcU9t19"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <p class="transition-all duration-[350ms] hover:scale-110 hover:text-lightLink">100 Rue de </br> l'Enchanteur Merlin, </br> 35380 Paimpont,</br> Bretagne, FRANCE</p>
+                </a>
+            </div>
+            
+            <div class="flex flex-col gap-6 min-w-[270px] py-4">
+                <p><span class="text-2xl text-[#FAD5BB] font-bold tracking-[0.04em]"> Explorez </span></p>
+                <ul class="flex flex-col gap-3">
+                    <li>
+                        <a 
+                            href="{{ path('app_habitats') }}"
+                            class="group relative w-max"
+                        > 
+                            <span class="transition-all duration-[350ms] group-hover:text-lightLink">Nos Habitats aménagés</span>
+                            <span class="absolute -bottom-1 left-0 w-0 transition-all duration-[350ms] h-0.5 bg-lightLink group-hover:w-full"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                            href="{{ path('app_services')}}"
+                            class="group relative w-max"
+                        > 
+                            <span class="transition-all duration-[350ms] group-hover:text-lightLink">Nos Services</span>
+                            <span class="absolute -bottom-1 left-0 w-0 transition-all duration-[350ms] h-0.5 bg-lightLink group-hover:w-full"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                            href="{{ path('app_home') }}#reviews"
+                            class="group relative w-max"
+                        > 
+                            <span class="transition-all duration-[350ms] group-hover:text-lightLink">Avis des visiteurs</span>
+                            <span class="absolute -bottom-1 left-0 w-0 transition-all duration-[350ms] h-0.5 bg-lightLink group-hover:w-full"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                            href="{{ path('app_informations') }}#about-us"
+                            class="group relative w-max"
+                        > 
+                            <span class="transition-all duration-[350ms] group-hover:text-lightLink">Plus sur Arcadia</span>
+                            <span class="absolute -bottom-1 left-0 w-0 transition-all duration-[350ms] h-0.5 bg-lightLink group-hover:w-full"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-6 min-w-[270px] py-4">
+                <p><span class="text-2xl text-[#FAD5BB] font-bold tracking-[0.04em] "> Contact </span></p>
+                <ul class="flex flex-col gap-3">
+                    <li>
+                        <a 
+                            href="tel:+337654321"
+                            class="group relative w-max"
+                        > 
+                            <span class="transition-all duration-[350ms] group-hover:text-lightLink">+33 7 65 43 21</span>
+                            <span class="absolute -bottom-1 left-0 w-0 transition-all duration-[350ms] h-0.5 bg-lightLink group-hover:w-full"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                            href="mailto:contact@arcadia-zoo.com"
+                            class="group relative w-max"
+                        > 
+                            <span class="transition-all duration-[350ms] group-hover:text-lightLink">contact@arcadia-zoo.com</span>
+                            <span class="absolute -bottom-1 left-0 w-0 transition-all duration-[350ms] h-0.5 bg-lightLink group-hover:w-full"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex pt-2 gap-5">
+                            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-facebook-f fa-lg transition-all duration-[350ms] hover:scale-125 hover:text-lightLink"></i>
+                            </a>
+                            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-x-twitter fa-lg transition-all duration-[350ms] hover:scale-125 hover:text-lightLink"></i>
+                            </a>
+                            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-instagram fa-lg transition-all duration-[350ms] hover:scale-125 hover:text-lightLink"></i>
+                            </a>
+                            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-linkedin-in fa-lg transition-all duration-[350ms] hover:scale-125 hover:text-lightLink"></i>
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-youtube fa-lg transition-all duration-[350ms] hover:scale-125 hover:text-lightLink"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

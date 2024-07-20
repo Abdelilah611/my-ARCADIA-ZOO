@@ -1,0 +1,99 @@
+<!-- Habitats Section -->
+<section 
+    class="py-20 flex flex-col justify-center md:py-32"
+    style='background: rgb(252,251,247);
+        background: -moz-linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+        background: -webkit-linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+        background: linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fcfbf7",endColorstr="#fcfbf7",GradientType=1);'
+    >
+    {% for habitatId, data in habitatsWithAnimals %}
+        <div class="flex flex-col self-center w-full h-screen pt-20 bg-cover bg-center text-[#FCFBF7] justify-end" style="background-image: url('../../images/{{ data.habitat.label}}.webp');">
+        <div 
+            class="flex flex-col space-y-3 px-8 py-20"
+            style='background: rgb(0,13,4);
+                background: -moz-linear-gradient(180deg, rgba(0,13,4,0) 0%, rgba(0,13,4,0.5088629201680672) 25%, rgba(0,13,4,0.9) 100%);
+                background: -webkit-linear-gradient(180deg, rgba(0,13,4,0) 0%, rgba(0,13,4,0.5088629201680672) 25%, rgba(0,13,4,0.9) 100%);
+                background: linear-gradient(180deg, rgba(0,13,4,0) 0%, rgba(0,13,4,0.5088629201680672) 25%, rgba(0,13,4,0.9) 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000d04",endColorstr="#000d04",GradientType=1);'
+        >
+            <img class="self-center" src="images/logo/zoo_logo-nobg-sm-40px-jungle-primary.svg" width="20px" alt="Arcadia Logo">
+            <h3 class="font-header text-[#FAD5BB] self-center text-[28px] sm:text-[40px] tracking-[0.01em]">Biome {{ data.habitat.label|capitalize }}</h3>
+            <p class="self-center text-center text-xl font-semibold tracking-wide">{{ data.habitat.description }}</p>
+            <div class="flex flex-row justify-center pt-5 text-[#FCFBF7]">
+                <button id="{{ data.habitat.label }}">
+                    <i class="fas fa-chevron-up transition-transform duration-[350ms] text-4xl text-[#FAD5BB]"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {% set habitatColors = {
+        'jungle': 'bg-jungleBG text-myWhite',
+        'savane': 'bg-savaneBG text-myBlack',
+        'marais': 'bg-maraisBG text-myBlack'
+    } %}
+
+    {% set headerColors = {
+        'jungle': 'text-lightHeader',
+        'savane': 'text-primGreen',
+        'marais': 'text-secBrown'
+    }%}
+
+    {% set logoColors = {
+        'jungle': "images/logo/zoo_logo-nobg-sm-40px-jungle-primary.svg",
+        'savane': "images/logo/zoo_logo-nobg-sm-40px-savannah.svg",
+        'marais': "images/logo/zoo_logo-nobg-sm-40px-marsh.svg"
+    }%}
+
+    <div id="{{ data.habitat.label }}-details" class="flex justify-center {{ habitatColors[data.habitat.label] }} pt-10 pb-20 px-8 md:pt-16 md:pb-32">
+        <div class="flex flex-col w-full max-w-[1200px] justify-center items-center gap-16">
+            <div id="{{ data.habitat.label }}-info" class="flex flex-col items-center gap-8 mb-16">
+                <div class="flex items-center gap-3">
+                    <img src={{ logoColors[data.habitat.label] }} width="20px"  alt="Arcadia Logo">
+                    <h3 class="font-header text-[32px] leading-[40px] md:text-5xl md:leading-[54px] {{ headerColors[data.habitat.label] }}">{{ data.habitat.label|capitalize }}</h3>
+                </div>
+                <p class="text-center max-w-[792px]">
+                    {{ data.habitat.longDescription }}
+                </p>
+                <div class="flex flex-wrap w-full justify-center gap-5">
+                {% for count in 1..3 %}
+                    <img class="aspect-square object-cover rounded-lg min-h-[300px] max-h-[380px]" src="images/habitat-{{ data.habitat.label|lower }}-{{ count }}.webp" alt="jungle biome picture">
+                {% endfor %}
+                </div>
+            </div>
+            <div id="jungle-animals" class="flex flex-col items-center gap-16">
+                <h3 class="text-center font-header {{ headerColors[data.habitat.label] }} text-[28px] leading-[32px] md:text-[40px] md:leading-[48px]"> Venez à leur rencontre </h3>
+                {% set count = 0 %}
+                {% for animal in data.animals %}
+                    {% set count = count + 1 %}
+                    <div id="{{ animal.name}}-card" class="flex flex-col gap-3 ronded-2xl border-">
+                        <div class="flex flex-col gap-3 lg:flex-row lg:gap-10">
+                            <img src="images/{{ animal.name|lower }}.png" class="lg:w-2/3 object-cover {{ count % 2 ? 'lg:order-last' : '' }}" alt="{{ animal.name|capitalize }}'s photo">
+                            <div class="flex flex-col gap-3 px-2 lg:w-1/3 lg:justify-center {{ count % 2 ? 'lg:items-end' : '' }}">
+                                <div class="flex items-end gap-4">
+                                    <img src={{ logoColors[data.habitat.label] }} width="20px"  alt="Arcadia Logo">
+                                    <h4 class="font-header text-3xl {{ headerColors[data.habitat.label] }}">{{ animal.name|capitalize }}</h4>
+                                </div>
+                                <p class="text-2xl font-bold {{ count % 2 ? 'lg:text-end' : '' }}"> {{ animal.race|title }} </p>
+                                <p class="{{ count % 2 ? 'lg:text-end' : '' }}"> 
+                                    {{ animal.presentation|capitalize }}
+                                </p>
+                                <button id="{{ animal.name }}" class="text-start {{ headerColors[data.habitat.label] }} italic underline underline-offset-4 font-bold px-2"> En savoir plus sur {{ animal.name|capitalize }} ... </button>
+                            </div>
+                        </div>
+                        <div id="{{ animal.name }}-details" class="hidden flex justify-center {{ count % 2 ? 'self-end' : '' }} lg:w-2/3 lg:max-w-[750px]">
+                            <p class="py-3">
+                            {{ animal.name|capitalize }} pèse en ce moment {{ animal.weight }} kg, et mesure {{ animal.size }} m.
+                            Nous jugeons {{ animal.name|capitalize }} comme étant en {{ animal.state }}. <br>
+                            À notre dernière visite, le {{ animalReports[animal.name].foodConsumption.date|date('d-m-Y') }}, son régime a été composé de {{ animalReports[animal.name].foodConsumption.detail }}. 
+                            {{ animal.name|capitalize }} {{ animalReports[animal.name].vetReport.detail}}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>

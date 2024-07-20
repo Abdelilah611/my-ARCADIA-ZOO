@@ -1,0 +1,29 @@
+<header class="fixed flex z-50 top-0 w-full h-20 border-b-[0.5px] bg-[#071501]/60 md:border-b-[0.5px] border-[#F7EAE1] before:box-border before:backdrop-blur-md before:backdrop-hack">
+    <!-- Nav Bar -->
+    <nav
+        id="main-nav"
+        class="max-w-[1200px] w-full m-auto px-8 flex items-center justify-between text-xl text-[#F7EAE1]"
+    >
+        <a 
+            href="{{ path('app_home') }}"
+            class="flex hover:scale-110 transition-all duration-[350ms] hover:drop-shadow-md ease-in-out"
+            aria-label="Arcadia Zoo - Page d'Accueil"
+        >
+            <img 
+                src="{{ asset('images/logo/zoo_logo_medium_transparent.svg') }}"
+                class="hidden md:h-14 md:inline md:mr-8"
+                alt=""
+            >
+            <img 
+                src="{{ asset('images/logo/zoo_logo-nobg-sm-40px-jungle-primary.svg') }}"
+                class="md:hidden"
+                alt=""
+            >
+        </a>
+
+        <div>
+            <a href="{{ path('app_logout') }}">
+                {{ component('Button', {text: 'Déconnexion', size:'small', isPrimary: false, isCta: false, labelColor: 'white'}) }}
+            </a>
+        </div>
+</header>

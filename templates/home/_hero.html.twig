@@ -1,0 +1,20 @@
+<!-- Hero Section -->
+<section
+    id="hero"
+    class="relative overflow-hidden h-screen w-screen bg-[url('../../images/galen-hero.webp')] bg-cover bg-[center] text-[#FCFBF7] font-body min-h-[660px] pt-24 2xl:bg-[center_bottom_1550px]"
+>
+    <div class="flex flex-col items-center justify-center space-y-5 px-12">
+        <img class="max-w-72" src="images/logo/zoo_logo_complete-lg-144px-block-transparent.svg" alt="Logo without Background">
+        <h1 class="font-header text-5xl leading-[52px] text-center tracking-tight capitalize text-[#FAD5BB] tracking-tight md:text-[76px] md:leading-[80px]">
+            Où la nature prospère
+        </h1>
+        <div class="flex py-3 gap-5 flex-wrap">
+            <a href="{{ path('app_informations')}}#about-us">
+                {{ component('Button', {text: 'En savoir plus', size: 'medium', isPrimary: true, isCta: false, labelColor: 'white'}) }}
+            </a>
+            <a href="{{ path('app_informations') }}">
+                {{ component('Button', {text: 'Nous contacter', size:'medium', isPrimary: true, isCta: false, labelColor: 'white'}) }}
+            </a>
+        </div>
+    </div>
+</section>

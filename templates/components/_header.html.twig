@@ -1,0 +1,83 @@
+<header class="fixed flex z-50 top-0 w-full h-20 border-b-[0.5px] md:border-b-[0.5px] border-[#F7EAE1] before:box-border before:backdrop-blur-md before:backdrop-hack">
+    <!-- Nav Bar -->
+    <nav
+        id="main-nav"
+        class="max-w-[1200px] w-full m-auto px-8 flex items-center justify-between text-xl text-[#F7EAE1]"
+    >
+        <a 
+            href="{{ path('app_home') }}"
+            class="flex hover:scale-110 transition-all duration-[350ms] hover:drop-shadow-md ease-in-out"
+            aria-label="Arcadia Zoo - Page d'Accueil"
+        >
+            <img 
+                src="images/logo/zoo_logo_medium_transparent.svg"
+                class="hidden md:h-14 md:inline md:mr-8"
+                alt=""
+            >
+            <img 
+                src="images/logo/zoo_logo-nobg-sm-40px-jungle-primary.svg"
+                class="md:hidden"
+                alt=""
+            >
+        </a>
+        <button
+            id="menu-btn"
+            aria-label="toggle button"
+            aria-expanded="false"
+            class="cursor-pointer w-10 md:hidden"
+        >
+            <img 
+                src="images/icons/menu.svg"
+                alt=""
+            >
+        </button>
+        <ul 
+            id="toggled-menu"
+            class="w-full absolute top-full left-0 -translate-y-[150%] -z-10 border-b border-[#FAD5BB] flex flex-col items-center bg-[#071501]/10 backdrop-blur-md md:static md:z-10 md:w-max md:transform-none md:border-none md:flex-row md:bg-transparent md:backdrop-blur-none"
+        >
+            <li class="py-4 md:py-0 md:mx-4 md:text-xs lg:text-sm">
+                <a 
+                    href="{{ path('app_services') }}"
+                    class="uppercase w-full group relative w-max"
+                > 
+                    <span class="transition-all duration-[350ms] group-hover:text-lightLink"> Nos Services </span>
+                    <span class="absolute -bottom-1 left-0 w-0 transition-all duration-[350ms] ease-in-out h-0.5 bg-lightLink group-hover:w-full"></span>
+                </a>
+            </li>
+            <li class="py-4 md:py-0 md:mx-4 md:text-xs lg:text-sm">
+                <a
+                    href="{{ path('app_habitats') }}"
+                    class="uppercase w-full group relative w-max"
+                > 
+                    <span class="transition-all duration-[350ms] group-hover:text-lightLink"> Nos Biomes </span>
+                    <span class="absolute -bottom-1 left-0 w-0 transition-all duration-[350ms] ease-in-out h-0.5 bg-lightLink group-hover:w-full"></span>
+                </a>
+            </li>
+            <li class="py-4 md:py-0 md:mx-4 md:text-xs lg:text-sm">
+                <a 
+                    href="{{ path('app_informations')}}"
+                    class="uppercase w-full group relative w-max"
+                > 
+                    <span class="transition-all duration-[350ms] group-hover:text-lightLink">Infos et Réservations </span>
+                    <span class="absolute -bottom-1 left-0 w-0 transition-all duration-[350ms] ease-in-out h-0.5 bg-lightLink group-hover:w-full"></span>
+                </a>
+            </li>
+            <li class="hidden md:inline md:py-4 md:py-0 md:mx-4">
+                <div class="flex items-center justify-center">
+                    <svg height="40" width="1">
+                        <line x1="0" y1="0" x2="0" y2="40" style="stroke:#F7EAE1;stroke-width:2" />
+                    </svg>
+                </div>
+            </li>
+            <li class="py-4 md:py-0 md:mx-4">
+                <div>
+                <a 
+                href="{{ path('app_login') }}"
+                >
+                    {{ component('Button', {text: 'Employé.e.s', size:'small', isPrimary: false, isCta: true, labelColor: ''}) }}
+                </a>
+                </div>
+
+            </li>
+        </ul>
+</header>

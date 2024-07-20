@@ -1,0 +1,35 @@
+<!-- Habitats Section -->
+<section 
+    class="py-20 flex flex-col justify-center md:py-32"
+    style='background: rgb(252,251,247);
+        background: -moz-linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+        background: -webkit-linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+        background: linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fcfbf7",endColorstr="#fcfbf7",GradientType=1);'
+    >
+    <div class="space-y-8 px-8 pb-10 sm:px-32 flex flex-col self-center">
+        <h2 class="font-header text-[40px] leading-[48px] text-[#73370D] max-w-[792px] sm:text-6xl sm:text-center tracking-tight">Découvrez notre Monde</h2>
+        <p class="self-center max-w-[792px] sm:text-center tracking-wider">Explorez nos habitats divers, soigneusement conçus pour refléter les environnements naturels de nos animaux résidents. Chaque habitat vous invite à contempler la beauté et la majesté de la nature de près.</p>
+    </div>
+    {% for habitat in habitats %}
+        <div class="flex flex-col self-center w-full h-screen pt-20 bg-cover bg-center text-[#FCFBF7] justify-end" style="background-image: url('../../images/{{ habitat.label}}.webp');">
+            <div 
+                class="flex flex-col space-y-3 px-8 py-20"
+                style='background: rgb(0,13,4);
+                    background: -moz-linear-gradient(180deg, rgba(0,13,4,0) 0%, rgba(0,13,4,0.5088629201680672) 25%, rgba(0,13,4,0.9) 100%);
+                    background: -webkit-linear-gradient(180deg, rgba(0,13,4,0) 0%, rgba(0,13,4,0.5088629201680672) 25%, rgba(0,13,4,0.9) 100%);
+                    background: linear-gradient(180deg, rgba(0,13,4,0) 0%, rgba(0,13,4,0.5088629201680672) 25%, rgba(0,13,4,0.9) 100%);
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000d04",endColorstr="#000d04",GradientType=1);'
+            >
+                <img class="self-center" src="images/logo/zoo_logo-nobg-sm-40px-jungle-primary.svg" width="20px" alt="Arcadia Logo">
+                <h3 class="font-header text-[#FAD5BB] self-center text-[28px] sm:text-[40px] tracking-[0.01em]">Biôme {{ habitat.label }}</h3>
+                <p class="self-center text-center text-xl font-semibold tracking-wide">{{ habitat.description }}</p>
+                <div class="flex flex-row justify-center pt-5 text-[#FCFBF7]">
+                    <a href="{{ path('app_habitats') }}#{{ habitat.label }}-details">
+                        {{ component('Button', {text: 'Je découvre le biome ' ~ habitat.label|capitalize, size:'medium', isPrimary: true, isCta: false, labelColor: 'white'}) }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</section>

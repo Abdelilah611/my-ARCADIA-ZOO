@@ -1,0 +1,75 @@
+<section class="px-8 py-10 md:py-20 bg-myBlack text-myWhite">
+    <div class="flex flex-col items-center gap-5 pb-20">
+        <h3 class="font-header text-[32px] leading-[40px] md:text-5xl md:leading-[54px] text-lightHeader text-center capitalize">La Consommation des animaux</h3>
+        <p class="text-center uppercase">Visualiser les dernières consommation données et en ajouter de nouvelles</p>
+    </div>
+    
+    <div class="flex flex-col justify-center items-center gap-10">
+        <h4 class="text-center text-lightHeader font-header text-[24px] leading-[30px] md:text-[40px] md:leading-[48px] capitalize">Vos dernières consommations ajoutées</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full">
+            {% for foodCon in lastFoodConsumptions %}
+                <div class="flex flex-col gap-5 rounded-md bg-myWhite p-5">
+                    <h4 class="text-center text-primGreen font-header text-[24px] leading-[30px]">{{ foodCon.animal.name|title }} - {{ foodCon.animal.race|title }}</h4>
+                    <p class="text-center text-myBlack font-bold underline underline-offset-2">Consommation du {{ foodCon.date|date('d/m/Y') }} à {{ foodCon.date|date('H:i') }} </p>
+                    <p class="text-center text-myBlack"> {{ foodCon.detail }} </p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="flex flex-col w-full max-w-[1200px] mx-auto py-20 gap-10">
+        <h4 class="text-center text-lightHeader font-header text-[24px] leading-[30px] md:text-[40px] md:leading-[48px] capitalize">Ajouter une nouvelle consommation</h4>
+        <form id="food-consumption-form" class="flex flex-col w-full gap-5" action="{{ path('add_food_consumption') }}" method="post">
+            <div class="flex flex-col w-full gap-3">
+                <label for="animal" class="text-myWhite">Animal</label>
+                <select name="animal" id="animal" class="w-full p-2 rounded-md text-myBlack">
+                    <option value="" selected disabled>Choisir un animal</option>
+                    {% for animal in animals %}
+                        <option value="{{ animal.id }}">{{ animal.name|title }} - {{ animal.race|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="flex flex-col w-full gap-3">
+                <label for="date" class="text-myWhite">Date</label>
+                <input type="datetime-local" name="date" id="date" class="w-full p-2 rounded-md text-myBlack">
+            </div>
+            <div class="flex flex-col w-full gap-3">
+                <label for="detail" class="text-myWhite">Détail</label>
+                <textarea name="detail" id="detail" class="w-full p-2 rounded-md text-myBlack"></textarea>
+            </div>
+            <button type="submit" class="bg-primGreen text-myWhite p-2 rounded-md">Ajouter</button>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('add_food_consumption') }}">
+        </form>
+    </div>
+    
+    <script>
+        const foodConsumptionForm = document.querySelector('#food-consumption-form');
+        foodConsumptionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('animal', document.getElementById('animal').value);
+            formData.append('date', document.getElementById('date').value);
+            formData.append('detail', document.getElementById('detail').value);
+
+            const url = foodConsumptionForm.action;
+            const method = foodConsumptionForm.method;
+
+            fetch(url, {
+                method: method,
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    alert('Consommation ajoutée avec succès');
+                    window.location.reload();
+                } else {
+                    alert('Erreur lors de l\'ajout de la consommation');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</section>

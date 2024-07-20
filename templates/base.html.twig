@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
+        <title>{% block title %}Arcadia Zoo{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+         <!-- Refresh the page every time it loads to ensure the latest JavaScript is included -->
+        {# <meta http-equiv="refresh" content="1"> #}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/app.tailwind.css') }}">
+            <link rel="stylesheet" href="{{ asset('styles/flickity.min.css') }}" media="screen">
+        {% endblock %}
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script src="{{ asset('flickity.pkgd.min.js') }}"></script>
+            <script src="https://kit.fontawesome.com/c2bdd07309.js" crossorigin="anonymous"></script>
+            <script type="module" src="{{ asset('js/menu.js') }}"></script>
+            <script type="module" src="{{ asset('js/habitats-toggle.js') }}"></script>
+            <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {% endblock %}
+    </head>
+
+    <body id="top" class="bg-myWhite font-body text-myBlack text-base tracking-wider md:text-xl md:tracking-[wide]">
+        {% if page_name not in ['login', 'profile', 'contact'] %}
+            {% include 'components/_header.html.twig' %}
+        {% endif %}
+        
+        {% block body %}{% endblock %}
+
+        <footer>
+            {% if page_name not in ['login', 'profile', 'contact'] %}
+                {% include 'components/_footer.html.twig' %}
+            {% endif %}
+        </footer>
+    </body>
+</html>

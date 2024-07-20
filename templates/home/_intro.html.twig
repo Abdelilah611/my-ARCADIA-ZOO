@@ -1,0 +1,14 @@
+<!-- Introduction Section -->
+<section class="py-20 px-8 sm:px-32 space-y-10 flex flex-col justify-center md:pt-64 md:pb-32">
+    <div class="space-y-8 max-w-[792px] flex flex-col self-center">
+        <h2 class="font-header text-[40px] leading-[48px] text-center text-[#73370D] capitalize sm:text-6xl"> Bienvenue au zoo d'Arcadia </h2>
+        <p class="">
+            Niché près de la forêt enchanteresse de Brocéliande en Bretagne, le zoo d'Arcadie est un phare d'émerveillement naturel depuis 1960. Notre engagement pour l'excellence et l'harmonie avec la nature nous distingue, offrant aux visiteurs une expérience inégalée d'immersion dans la vie sauvage. Rejoignez-nous pour un voyage où chaque instant est imprégné de la magie du monde naturel.
+        </p>
+    </div>
+    <div class="flex justify-center">
+        <a href="{{ path('app_informations')}}">
+            {{ component('Button', {text: 'Je visite Arcadia', size:'large', isPrimary: true, isCta: false, labelColor: ''}) }}
+        </a>
+    </div>
+</section>

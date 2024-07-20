@@ -1,0 +1,61 @@
+<section class="px-8 py-10 md:py-20 bg-myBlack text-myWhite">
+    <div class="flex flex-col items-center gap-5 pb-20">
+        <h3 class="font-header text-[32px] leading-[40px] md:text-5xl md:leading-[54px] text-lightHeader text-center capitalize">Avis utilisateurs</h3>
+        <p class="text-center uppercase">Afficher ou retirer des avis utilisateurs</p>
+    </div>
+
+    <div class="flex justify-center">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-10 w-full">
+            {% for review in reviews %}
+                <div class="flex flex-col gap-3">
+                    <div class="bg-white text-myBlack shadow-md p-6 rounded-lg">
+                        <p class="self-center"> {{ review.comment }} </p>
+                        <p class="font-normal text-[#1F5906] text-right w-full">- {{ review.pseudo }}</p>
+                    </div>
+                    <form id="review-form-{{ review.id }}" action="{{ path('review_update', {'id': review.id}) }}" method="post">
+                        <input type="radio" id="{{ review.id }}-yes" name="isVisible" value="Yes" {{ review.isVisible == true ? 'checked' : '' }}>
+                        <label for="{{ review.id }}-yes" class="text-lightSuccess">Yes</label>
+                        <input type="radio" id="{{ review.id }}-no" name="isVisible" value="No" {{ review.isVisible == false ? 'checked' : '' }}>
+                        <label for="{{ review.id }}-no" class="text-lightDanger">No</label>
+                        <br/>
+                        <button type="submit">Enregistrer</button>
+                    </form>
+                    <div id="review-{{ review.id }}"></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    const forms = document.querySelectorAll('form');
+
+    forms.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const url = form.action;
+            const method = form.method;
+
+            fetch(url, {
+                method: method,
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Review updated successfully!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        });
+    });
+</script>

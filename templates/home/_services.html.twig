@@ -1,0 +1,47 @@
+<section class="px-8 py-20 md:py-32">
+    <div class="flex flex-col items-center">
+        <div class="max-w-[792px] self-center space-y-8 pb-8">
+            <h2 class="font-header text-[40px] leading-[48px] text-[#73370D] sm:text-6xl sm:text-center tracking-tight">Ce que nous vous offrons</h2>
+            <p class="tracking-wider">Faites-vous plaisir avec nos services conçus pour enrichir votre visite et créer des souvenirs durables. Des expériences culinaires gastronomiques aux visites guidées exclusives, nous proposons tout ce qui sublimera votre aventure à Arcadia.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:flex-wrap justify-between justify-items-center items-center sm:space-y-0 mx-auto w-full">
+            {% for service in services %}
+                <div class="max-w-[300px] space-y-5 py-8 m-auto">
+                    <img class="m-auto aspect-square w-[250px] min-w-[250px] h-[250px] min-h-[250px] object-cover rounded-full overflow-hidden border-2 border-[#73370D] " src="/images/service-{{ service.id }}.webp" alt="Photo de {{ service.label }}">
+                    <div class="space-y-2">
+                        <h3 class="text-[#73370D] text-3xl font-bold text-center tracking-wide"> {{ service.label|title }} </h3>
+                        <p class="text-center"> {{ service.description }} </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="flex flex-row justify-center pt-8">
+            <a href="{{ path('app_services') }}">
+                {{ component('Button', {text: 'J\'explore les services', size:'medium', isPrimary: true, isCta: false, labelColor: ''}) }}
+            </a>
+        </div>
+    </div>
+</section>
+        
+        
+        {# <div class="max-w-[300px] space-y-5 py-8 m-auto">
+                <img class="m-auto aspect-square w-[250px] min-w-[250px] h-[250px] min-h-[250px] object-cover rounded-full overflow-hidden border-2 border-[#73370D] " src="/images/restaurant-arcadia.webp" alt="Photo du restaurant">
+                <div class="space-y-2">
+                    <h3 class="text-[#73370D] text-3xl font-bold text-center tracking-wide">Restaurants</h3>
+                    <p class="text-center">Savourez une cuisine exquise dans un cadre à couper le souffle</p>
+                </div>
+            </div>
+            <div class="max-w-[300px] space-y-5 py-8 m-auto">
+                <img class="m-auto aspect-square w-[250px] min-w-[250px] h-[250px] min-h-[250px] object-cover rounded-full overflow-hidden border-2 border-[#73370D] " src="/images/guided-visit-arcadia.webp" alt="Photo du restaurant">
+                <div class="space-y-2">
+                    <h3 class="text-[#73370D] text-3xl font-bold text-center tracking-wide">Visites Guidées</h3>
+                    <p class="text-center">Lancez-vous dans des voyages immersifs menés par nos experts, gratuitement</p>
+                </div>
+            </div>
+            <div class="max-w-[300px] space-y-5 py-8 m-auto">
+                <img class="m-auto aspect-square w-[250px] min-w-[250px] h-[250px] min-h-[250px] object-cover rounded-full overflow-hidden border-2 border-[#73370D] " src="/images/minitrain-arcadia.webp" alt="Photo du restaurant">
+                <div class="space-y-2">
+                    <h3 class="text-[#73370D] text-3xl font-bold text-center tracking-wide">Visites en Train</h3>
+                    <p class="text-center">Profitez de balades tranquilles, découvrant des joyaux cachés en chemin</p>
+                </div>
+            </div> #}

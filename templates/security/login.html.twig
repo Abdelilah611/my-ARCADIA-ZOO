@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<section class="flex">
+    <form method="post" class="flex flex-col items-center h-screen w-full pt-5 pb-64 px-8 md:pt-20">
+        <img class="w-64 max-w-xl drop-shadow-sm mb-10 sm:w-80 md:w-96" src="images/logo/zoo-logo_transparentBG_bloc_dark.svg" alt="Logo without Background">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }},
+            </div>
+            <a href="{{ path('app_logout') }}">
+                Logout
+            </a>
+        {% else %}
+            <h1 class="mb-3 font-header text-3xl text-center tracking-tight capitalize text-secBrown tracking-tight md:text-5xl md:leading-[52px]">Please sign in !</h1>
+            <div class="flex flex-col w-full max-w-[792px] gap-5">
+                <div class="flex flex-col w-full">
+                    <label for="inputEmail" class="block pb-2 text-[#1F5906] text-sm italic tracking-wider">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control block text-base tracking-wider w-full p-2 border-[0.5px] border-[#1F5906] bg-[#1F5906]/[.02] rounded placeholder:text-[#B3ADA9] placeholder:text-base invalid:border-[#D43E35] invalid:text-[#D43E35] focus:border-[#2A66DB] focus:ring-1 focus:outline-none focus:ring-[#2A66DB]" autocomplete="email" required autofocus>
+                </div>
+                <div class="flex flex-col w-full">
+                    <label for="inputPassword" class="block pb-2 text-[#1F5906] text-sm italic tracking-wider">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control form-control block text-base tracking-wider w-full p-2 border-[0.5px] border-[#1F5906] bg-[#1F5906]/[.02] rounded placeholder:text-[#B3ADA9] placeholder:text-base invalid:border-[#D43E35] invalid:text-[#D43E35] focus:border-[#2A66DB] focus:ring-1 focus:outline-none focus:ring-[#2A66DB]" autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
+                
+                <div class="self-center">
+                    {{ component('Button', {text: 'Connexion', size:'medium', isPrimary: true, isCta: true, isSubmit: true, labelColor: ''}) }}
+                </div>
+            </div>
+        {% endif %}
+    </form>
+</section>
+
+
+{% endblock %}

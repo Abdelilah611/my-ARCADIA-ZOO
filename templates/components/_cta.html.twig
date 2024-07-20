@@ -1,0 +1,17 @@
+<section
+    class="flex px-8 py-20 justify-center md:py-32" 
+    style='background: rgb(252,251,247);
+        background: -moz-linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+        background: -webkit-linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+        background: linear-gradient(180deg, rgba(252,251,247,1) 0%, rgba(247,234,225,1) 10%, rgba(247,234,225,1) 90%, rgba(252,251,247,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fcfbf7",endColorstr="#fcfbf7",GradientType=1);'
+>
+    <div class="flex flex-col gap-10 max-w-[1200px] justify-center">
+        <h2 class="font-header text-5xl text-center text-[#1f5906] text-shadow shadow-[#021708]/20 sm:text-[76px] sm:leading-[80px]"> Embarquez pour L’aventure Arcadia </h2>
+        <div class="self-center">
+            <a href="{{ path('app_informations') }}">
+                {{ component('Button', {text: 'Je me lance !', size:'large', isPrimary: true, isCta: false, labelColor: ''}) }}
+            </a>
+        </div>
+    </div>
+</section>

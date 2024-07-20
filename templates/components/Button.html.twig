@@ -1,0 +1,41 @@
+{# Define button classes #}
+{% set buttonClasses = [
+    'font-bold',
+    'capitalize',
+    'rounded',
+    'shadow-md',
+    'hover:shadow-[6px_6px_3px_-2px_rgba(2,23,8,0.4)]',
+    'max-w-fit',
+    'border-[1px]',
+    'backdrop-blur-sm',
+    'hover:scale-110',
+    'transition-all',
+    'duration-[350ms]',
+    'ease-in-out',
+    size == 'small' ? 'text-sm py-2 px-3' : '',
+    size == 'medium' ? 'text-base py-3 px-5' : '',
+    size == 'large' ? 'text-xl py-5 px-8' : '',
+] %}
+
+{# Define if it's a Submit Button #}
+{% set buttonSubmit = isSubmit ? 'submit' : '' %}
+
+{# Define conditional button classes based on whether it's a CTA and color type #}
+{% if isCta %}
+    {% set bgColor = isPrimary ? 'bg-primGreen' : 'bg-secBrown' %}
+    {% set borderColor = isPrimary ? 'border-primGreen' : 'border-secBrown' %}
+    {% set textColor = 'text-myWhite' %}
+{% else %}
+    {% set bgColor = isPrimary ? 'bg-primGreen/[0.02]' : 'bg-secBrown/[0.02]' %}
+    {% set borderColor = isPrimary ? 'border-primGreen' : 'border-secBrown' %}
+    {% set textColor = labelColor == 'white' ? 'text-myWhite' : isPrimary ? 'text-primGreen' : 'text-secBrown' %}
+{% endif %}
+
+{# Merge the previoius classes with default classes #}
+{% set buttonClasses = buttonClasses|merge([bgColor, borderColor, textColor]) %}
+
+
+{# Render the button #}
+<button class="{{ buttonClasses|join(' ') }}" type="{{ buttonSubmit }}">
+    {{ text }}
+</button>

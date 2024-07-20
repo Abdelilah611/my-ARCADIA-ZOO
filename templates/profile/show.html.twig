@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+
+{% include 'profile/_customHeader.html.twig' %}
+
+{% include 'profile/_hero.html.twig' %}
+
+{% include 'profile/_profileInfos.html.twig' %}
+
+{% if is_granted('ROLE_ADMIN')%}
+    {% include 'profile/admin/index.html.twig' %}
+{% elseif is_granted('ROLE_VETERINARY')%}
+    {% include 'profile/veterinary/index.html.twig' %}
+{% elseif is_granted('ROLE_EMPLOYEE')%}
+    {% include 'profile/employee/index.html.twig' %}
+{% endif %}
+
+{% endblock %}

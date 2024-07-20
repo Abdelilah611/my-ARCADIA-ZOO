@@ -1,0 +1,69 @@
+<section id="reviews" class="flex flex-col gap-10 py-20 md:py-32">
+    <h2 class="font-header text-[40px] leading-[48px] text-[#73370D] tracking-tight px-8  sm:text-6xl sm:text-center"> Quelques avis pour vous éclairer </h2>
+    <div 
+        class="carousel py-4 content-center"
+        data-flickity='{ "freeScroll": true, "wrapAround": true }'
+    >
+        {% for review in reviews %}
+            <div class="carousel-cell flex flex-col mx-6 my-2 p-8 gap-3 min-w-[300px] max-w-[450px] bg-[#F7EAE1] rounded-2xl border-[1px] border-[#1F5906] shadow-md md:w-[450px]">
+                <p class="self-center"> {{ review.comment }} </p>
+                <p class="font-normal text-[#1F5906] text-right w-full">- {{ review.pseudo }}</p>
+            </div> 
+        {% endfor %}
+    </div>
+    <div class="flex flex-col my-10 gap-10 px-8 md:max-w-[792px] md:w-full md:mx-auto">
+        <p class="text-2xl font-bold text-[#73370D] text-center">Vous aussi, partagez nous votre expérience à Arcadia !</p>
+        <!-- AJAX FORM -->
+        <form action="{{ path('add_review') }}" method="post" class="flex flex-col gap-5" data-ajax>
+            <div class="flex w-full gap-5">
+                <div class="w-1/2">
+                    <label for="firstname" class="block pb-2 text-[#1F5906] text-sm italic tracking-wider">Votre Prénom</label>
+                    <input id="firstname" name="firstname" type="text" placeholder="Nico" class="block text-base tracking-wider w-full p-2 border-[0.5px] border-[#1F5906] bg-[#1F5906]/[.02] rounded placeholder:text-[#B3ADA9] placeholder:text-base invalid:border-[#D43E35] invalid:text-[#D43E35] focus:border-[#2A66DB] focus:ring-1 focus:outline-none focus:ring-[#2A66DB]">
+                </div>
+                <div class="w-1/2">
+                    <label for="lastname" class="block pb-2 text-[#1F5906] text-sm italic tracking-wider">Votre Nom</label>
+                    <input id="lastname" name="lastname" type="text" placeholder="PBT" class="block text-base tracking-wider w-full p-2 border-[0.5px] border-[#1F5906] bg-[#1F5906]/[.02] rounded placeholder:text-[#B3ADA9] placeholder:text-base invalid:border-[#D43E35] invalid:text-[#D43E35] focus:border-[#2A66DB] focus:ring-1 focus:outline-none focus:ring-[#2A66DB]">
+                </div>
+            </div>
+            <div>
+                <label for="review" class="block pb-2 text-[#1F5906] text-sm italic tracking-wider">Votre avis</label>
+                <textarea id="review" name="review" placeholder="Écrivez votre message ici ..." class="block text-base tracking-wider w-full p-2 border-[0.5px] border-[#1F5906] bg-[#1F5906]/[.02] rounded placeholder:text-[#B3ADA9] placeholder:text-base invalid:border-[#D43E35] invalid:text-[#D43E35] focus:border-[#2A66DB] focus:ring-1 focus:outline-none focus:ring-[#2A66DB]"></textarea>
+            </div>
+            <div class="self-center pt-5">
+                {{ component('Button', {text: 'Poster mon Avis', size:'medium', isPrimary: true, isCta: false, labelColor: ''}) }}
+            </div>
+        </form>
+    </div>
+
+    {# AJAX FORM script to handle the request #}
+    <script>
+        document.querySelector('form[data-ajax]').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            fetch(e.target.action, {
+                method: 'POST',
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the response data
+                console.log(data);
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Merci pour votre avis !',
+                        text: 'Votre avis a bien été pris en compte.',
+                        icon: 'success',
+                        confirmButtonText: 'Fermer',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch((error) => {
+                // Handle the error
+                console.error(error);
+            });
+            e.target.reset();
+        });
+    </script>
+</section>

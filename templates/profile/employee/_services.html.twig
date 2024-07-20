@@ -1,0 +1,68 @@
+<section class="px-8 py-10 md:py-20 bg-myWhite text-myBlack">
+    <div class="flex flex-col items-center gap-5 pb-20">
+        <h3 class="font-header text-[32px] leading-[40px] md:text-5xl md:leading-[54px] text-secBrown text-center capitalize">Modifier les services</h3>
+        <p class="text-center uppercase">Modifier les informations des différents services disponibles</p>
+    </div>
+    <div class="flex flex-col items-center gap-10">
+        {% for service in services%}
+        <div class="flex flex-col justify-center gap-2 w-full max-w-[1200px]">
+            <form
+                class="flex flex-col gap-5"
+                id="service-form-{{ service.id }}"
+                action="{{ path('service_update', {id: service.id}) }}"
+                method="post"
+            >
+                <div class="flex flex-col gap-2">
+                    <label for="label">Label</label>
+                    <input type="text" id="label" name="label" value="{{ service.label }}">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="description">Description</label>
+                    <input type="text" id="description" name="description" value="{{ service.description }}">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="longDescription">Longue description</label>
+                    <input type="text" id="longDescription" name="longDescription" value="{{ service.longDescription }}">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="textBtn">Texte du bouton</label>
+                    <input type="text" id="textBtn" name="textBtn" value="{{ service.textBtn }}">
+                </div>
+                <button type="submit">Enregistrer</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <script>
+        const serviceForms = document.querySelectorAll('form');
+        serviceForms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const url = form.action;
+                const method = form.method;
+                
+                fetch(url, {
+                    method: method,
+                    body: formData,
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Service updated successfully!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+            });
+        });
+    </script>
+</section>
